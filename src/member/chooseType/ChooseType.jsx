@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import styles from "./ChooseType.module.css";
 import babyImg from "./img/baby.png";
 import childrenImg from "./img/children.png";
@@ -32,6 +33,21 @@ const ChooseType = () => {
             setInputBlocks((prev) => [...prev, {}]);
         }
     };
+    // BabyController -> 여기 모달로 페이지 이동
+    const location = useLocation();
+    const params = new URLSearchParams(location.search);
+    const type = params.get("type");
+
+    useEffect(() => {
+    if (type === "mom") {
+        setShowNewDiv(true);      // 임산모 화면 켜기
+        setShowNewDivTwo(false);
+    }
+    if (type === "child") {
+        setShowNewDivTwo(true);   // 육아 화면 켜기
+        setShowNewDiv(false);
+    }
+    }, [type]);
 
     // 새 블록 추가 시 자동 스크롤
     useEffect(() => {

@@ -1,8 +1,11 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import styles from "./Mypage.module.css";
 
 //부모마이페이지 정보
 const Mypage = () => {
+
+    const navigate = useNavigate();
+
     return (
         <div className={styles.container}>
             <div className={styles.parentpage}>
@@ -54,7 +57,7 @@ const Mypage = () => {
                     <div className={styles.familywhy}>뭐가 오겠지 뭐</div>
                     
                     <div className={styles.btwo}>
-                        <button className={styles.delete}>취소</button>
+                        <button className={styles.delete} onClick={() => navigate(-1)}>취소</button>
                         <button className={styles.success}>완료</button>
                     </div>
                 </div>

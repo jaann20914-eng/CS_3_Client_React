@@ -1,22 +1,23 @@
 .container {
-    width:50%;
+    width:40%;
     height:100%;
     background-color: #FFF4D6;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 20px;
     /* border: 1px solid black; */
 }
 
 .parentpage {
-    width:90%;
-    height:90%;
+    width:95%;
+    height:95%;
     /* border:1px solid black; */
 }
 
 .info {
     width:100%;
-    height:auto;
+    height:73%;
     /* border:1px solid black; */
 }
 
@@ -70,6 +71,7 @@
     height:48px;
     border:1px solid #696B70;
     padding: 0 10px;
+    outline: none;
 }
 .nick input::placeholder {
     font-size: 16px;
@@ -92,6 +94,7 @@
     height:48px;
     border:1px solid #696B70;
     padding: 0 10px;
+    outline: none;
 }
 .email input::placeholder {
     font-size: 16px;
@@ -161,6 +164,7 @@
     box-sizing: border-box;
     outline: none;
     text-align: center;
+    background-color: white;
 }
 
 .phoneWrapper input::placeholder {
@@ -175,7 +179,7 @@
 
 .fabt {
     width:100%;
-    height:30%;
+    height:27%;
     display: flex;
     flex-direction: column;
     gap:16px;
@@ -184,7 +188,7 @@
 }
 
 .familycode {
-    margin-top: 16px;
+    /* margin-top: 16px; */
     font-size: 18px;
     color: #696B70;
     margin-left: 10px;
@@ -201,7 +205,7 @@
     flex:1;
     position: absolute;
     right: 0;
-    bottom: 10px;
+    bottom: 1px;
     display: flex;
     gap: 10px;
     /* border:1px solid black; */
@@ -216,6 +220,11 @@
     border:none;
     background-color:#B9B9B9;
     color:white;
+    cursor: pointer;
+}
+
+.delete:hover {
+    background-color: #F0D827;
 }
 
 .success {
@@ -227,4 +236,5 @@
     border:none;
     background-color: #F0D827;
     color:white;
+    cursor: pointer;
 }
