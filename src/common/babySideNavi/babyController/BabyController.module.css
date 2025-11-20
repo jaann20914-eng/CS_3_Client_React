@@ -302,3 +302,53 @@
 .back:hover {
     color: #d9b600;
 }
+
+
+
+/*-------------------------------------------------------------*/
+.ing {
+    width:20%;
+    border:2px solid #F0D827;
+    background-color: white;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease; /* 전체 확대 */
+    cursor: pointer;
+}
+
+.ing:hover {
+    background-color: #FFF4D6;
+    width: 22%;
+}
+
+.ing:hover img,
+.ing:hover .babyname,
+.ing:hover .how {
+    transform: scale(1.1); /* 가로+세로 5% 확대 */
+    transition: transform 0.3s ease;
+}
+
+
+.b {
+    display: flex;
+    flex-direction: column; /* 세로로 쌓기 */
+    justify-content: center; /* 세로 가운데 */
+    align-items: center;     /* 가로 가운데 */
+    gap: 10px; /* 이미지와 이름, 이름과 how 간격 설정 */
+    /* border:1px solid black; */
+}
+
+.name {
+    font-size: 20px;
+    font-weight: bold;
+    color:#696B70;
+}
+
+
+.howtwo {
+    font-size: 16px;
+    color:#696B70;
+    font-weight: bold;
+}
