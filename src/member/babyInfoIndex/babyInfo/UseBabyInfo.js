@@ -41,7 +41,7 @@ function useBabyInfo(isEditing, selectedGender, setSelectedGender, setIsEditing)
             .catch(err => {
                 console.log(err);
             })
-    }, [id]);
+    }, [id, isEditing]);
 
     // 핸들러
     const handleChange = (e) => {

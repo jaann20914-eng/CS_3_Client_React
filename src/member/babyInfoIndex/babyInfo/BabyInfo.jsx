@@ -21,7 +21,7 @@ const BabyInfo = () => {
             <div className={styles.babyinformation}>
 
                 {/* 제목 */}
-                <div className={styles.bb}> 
+                <div className={styles.bb}>
                     <h1>아기 정보</h1>
                 </div>
 
@@ -32,7 +32,7 @@ const BabyInfo = () => {
                         type="text"
                         id="babyname"
                         name="name"
-                        value={data.name  || ""}
+                        value={data.name || ""}
                         onChange={handleChange}
                         className={`${styles.babyname} ${!regex.name && inputCount.name > 0 ? styles.auth : ""}`}
                         readOnly={!isEditing}
@@ -76,24 +76,26 @@ const BabyInfo = () => {
                     <h1 className={styles.sextitle}>성별</h1>
                     <div className={styles.btns}>
                         {isEditing ? (
-                            ["미정", "남자", "여자"].map((gender) => (
-                                <button
-                                    key={gender}
-                                    className={`${styles[gender === "미정" ? "quest" : gender === "남자" ? "manb" : "girlb"]} ${selectedGender === gender ? styles.active : ""}`}
-                                    onClick={() => {
-                                        setSelectedGender(gender);       // 버튼 선택 상태
-                                        setData(prev => ({ ...prev, gender })); // data.gender도 동기화
-                                    }}
-                                    style={{
-                                        backgroundColor: selectedGender === gender ? "#ADB9E3" : "white",
-                                        border: selectedGender === gender ? "none" : "1px solid #8C8C8C",
-                                        color: "#8C8C8C",
-                                        cursor: "pointer"
-                                    }}
-                                >
-                                    {gender === "미정" ? "미정?" : gender}
-                                </button>
-                            ))
+                            ["미정", "남자", "여자"]
+                                .filter(gender => !(data.status === "infant" && gender === "미정")) // ← infant면 미정 버튼 제외
+                                .map((gender) => (
+                                    <button
+                                        key={gender}
+                                        className={`${styles[gender === "미정" ? "quest" : gender === "남자" ? "manb" : "girlb"]} ${selectedGender === gender ? styles.active : ""}`}
+                                        onClick={() => {
+                                            setSelectedGender(gender);       // 버튼 선택 상태
+                                            setData(prev => ({ ...prev, gender })); // data.gender 동기화
+                                        }}
+                                        style={{
+                                            backgroundColor: selectedGender === gender ? "#ADB9E3" : "white",
+                                            border: selectedGender === gender ? "none" : "1px solid #8C8C8C",
+                                            color: "#8C8C8C",
+                                            cursor: "pointer"
+                                        }}
+                                    >
+                                        {gender === "미정" ? "미정?" : gender}
+                                    </button>
+                                ))
                         ) : (
                             <span style={{
                                 display: "inline-block",
