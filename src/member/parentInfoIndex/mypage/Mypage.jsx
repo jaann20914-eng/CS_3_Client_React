@@ -1,13 +1,12 @@
 import { useState } from "react";
 import styles from "./Mypage.module.css";
-import useMypage from "./useMypage";
+import useMypage from "./useMypage"; // 첫 글자 대문자로
 const Mypage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const {
     data, regexAuth, inputCount,
     hendleChange, chackClick, emailAuthClick, handleComplete
   } = useMypage(isEditing, setIsEditing);
-
   return (
     <div className={styles.container}>
       <div className={styles.parentpage}>
