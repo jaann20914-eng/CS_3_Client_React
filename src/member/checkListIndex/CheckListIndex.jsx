@@ -8,7 +8,7 @@ const CheckListIndex = () => {
   const { babyData } = UseCheckListIndex();
 
   return (
-    <div className={styles.CheckContanier}>
+    <div className={styles.CheckContainer}>
       {/* Left 영역 (검진 리스트) */}
       <div className={styles.left}>
         <h2 className={styles.title}>주차별 산전 검진</h2>

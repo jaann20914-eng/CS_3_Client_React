@@ -96,6 +96,7 @@
   padding-top: 5px;
 }
 
+/* activeDotLine */
 .activeDotLine::before {
   content: "";
   position: absolute;
@@ -208,7 +209,6 @@
   flex-shrink: 0;
   cursor: pointer;
 }
-
 .checkPending:hover {
   background-color: #fff;
   border: 6px solid #adb9e3;

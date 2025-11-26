@@ -6,13 +6,15 @@ import UsePrenatalList from "./UsePrenatalList";
 
 // --- CheckItem ---
 const CheckItem = ({ check, onToggle }) => {
+  // 완료 상태에 따라 다른 CSS 클래스 적용
   const checkCircleClass = check.isDone
-    ? styles.checkDone
-    : styles.checkPending;
+    ? styles.checkDone // 완료된 상태 (색상 채워짐)
+    : styles.checkPending; // 미완료 상태 (테두리만 있음)
 
   return (
     <motion.div
       className={styles.checkItem}
+      // Framer Motion: 항목 로드 시 왼쪽에서 부드럽게 나타나는 애니메이션 효과 적용
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.4 }}
@@ -21,8 +23,9 @@ const CheckItem = ({ check, onToggle }) => {
         <button className={checkCircleClass} onClick={() => onToggle(check)} />
         <div className={styles.checkContent}>
           <b className={styles.checkTitle}>{check.title}</b>
-          <div className={styles.checkDate}>{check.date}
-             {check.is_checked === "Y" && "  (예약 일정)"}
+          <div className={styles.checkDate}>
+            {check.date}
+            {check.is_checked === "Y" && "  (예약 일정)"}
           </div>
         </div>
       </div>
@@ -32,24 +35,28 @@ const CheckItem = ({ check, onToggle }) => {
 
 // --- WeekSection ---
 const WeekSection = ({ data, onToggle, isSpecialWeek }) => {
+  // isSpecialWeek (가장 최근/현재 주차) 여부에 따라 스타일 클래스 결정
   const containerClass = isSpecialWeek
-    ? styles.activeSection
-    : styles.defaultSection;
+    ? styles.activeSection // 활성 섹션: 노란색 배경 및 테두리로 강조
+    : styles.defaultSection; // 일반 섹션
   const lineDotClass = isSpecialWeek
-    ? styles.activeDotLine
-    : styles.defaultDotLine;
+    ? styles.activeDotLine // 활성 섹션 라인 도트
+    : styles.defaultDotLine; // 일반 섹션 라인 도트
 
   return (
     <motion.div
       className={styles.section}
+      // Framer Motion: 섹션 로드 시 아래에서 부드럽게 나타나는 애니메이션
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.9 }}
     >
       <div className={styles.sectionInner}>
         <div className={containerClass}>
+          {/* 주차 라인의 도트와 연결선 */}
           <div className={`${styles.leftLine} ${lineDotClass}`} />
           <div className={styles.sectionContent}>
+            {/* 주차/월령 타이틀 (노란색 배경) */}
             <div className={styles.weekHeader}>
               <div className={styles.weekWrapper}>
                 <b className={styles.weekTitle}>{data.week}</b>
@@ -80,22 +87,23 @@ const PrenatalList = ({ babyData }) => {
     return isInfant ? BABY_CHECKLIST : FETAL_CHECKLIST;
   }, [isInfant]);
 
-  const { data, setData, handelChange, dataInsert, dataDelect, selectList } = UsePrenatalList(
-    setChecklist,
-    setIsModalOpen,
-    setCheckClicked,
-    selectedCheck
-  );
+  const { data, setData, handelChange, dataInsert, dataDelect, selectList } =
+    UsePrenatalList(
+      setChecklist,
+      setIsModalOpen,
+      setCheckClicked,
+      selectedCheck
+    );
 
   useEffect(() => {
     if (!babyData) return;
 
-    const init = checklistInitial.map(section => ({
+    const init = checklistInitial.map((section) => ({
       ...section,
-      checks: section.checks.map(ch => ({
+      checks: section.checks.map((ch) => ({
         ...ch,
-        isDone: false
-      }))
+        isDone: false,
+      })),
     }));
 
     setChecklist(init);
@@ -111,7 +119,12 @@ const PrenatalList = ({ babyData }) => {
     setIsModalOpen(false);
     setCheckClicked(false);
     setSelectedCheck(null);
-    setData(prev => ({ ...prev, test_code: "", is_checked: "", created_at: "" }));
+    setData((prev) => ({
+      ...prev,
+      test_code: "",
+      is_checked: "",
+      created_at: "",
+    }));
   };
 
   // 완료 버튼
@@ -136,7 +149,12 @@ const PrenatalList = ({ babyData }) => {
       setIsModalOpen(true);
       setCheckClicked(false);
 
-      setData(prev => ({ ...prev, test_code: check.id, is_checked: "N", created_at: "" }));
+      setData((prev) => ({
+        ...prev,
+        test_code: check.id,
+        is_checked: "N",
+        created_at: "",
+      }));
     } else {
       dataDelect(check.id);
       setChecklist((prev) =>
@@ -189,19 +207,27 @@ const PrenatalList = ({ babyData }) => {
                       name="date"
                       value={data.created_at}
                       onChange={handelChange}
-                      min={checkClicked ? new Date().toISOString().split("T")[0] : undefined}
+                      min={
+                        checkClicked
+                          ? new Date().toISOString().split("T")[0]
+                          : undefined
+                      }
                       className={styles.inputBox}
                     />
                   </div>
 
-                  <div className={styles.row} style={{ marginTop: "10px", gap: "20px" }}>
+                  <div
+                    className={styles.row}
+                    style={{ marginTop: "10px", gap: "20px" }}
+                  >
                     <label className={styles.checkboxLabel}>
                       <input
                         type="checkbox"
                         name="checkbox"
                         checked={data.is_checked === "Y"}
                         onChange={handelChange}
-                      /> 일정 예약
+                      />{" "}
+                      일정 예약
                     </label>
                   </div>
                 </div>
