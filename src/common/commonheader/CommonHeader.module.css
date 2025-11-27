@@ -77,6 +77,11 @@
   color: #f0d827;
 }
 
+.menuActive .menuItem {
+  font-weight: bold;
+  color: #f0d827;
+}
+
 /* 밑줄 기본 */
 .menuItemBox::after {
   content: "";
