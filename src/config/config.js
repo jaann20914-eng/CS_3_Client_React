@@ -5,8 +5,7 @@ export const FILE_SERVER = "http://192.168.45.136";//파일서버 주소
 
 
 export const caxios = axios.create({
-  baseURL: `http://192.168.45.136/`
-
+  baseURL: `http://10.5.5.4/`
 });
 
 //모든 일반 api 호출
