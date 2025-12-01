@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styles from "./CommonHeader.module.css";
 import { HelpCircle, Menu, Bell } from "lucide-react";
 import log from "./imgs/log.svg";
@@ -7,12 +7,13 @@ import BabySideNavi from "../babySideNavi/BabySideNavi";
 import UseCommonHeader from "./UseCommonHeader";
 import useAuthStore from "store/useStore";
 
-const CommonHeader = ({ isLogin, alerts, setAlerts }) => {
+const CommonHeader = ({ isLogin, alerts, setAlerts, newAlerts, setNewAlerts}) => {
   const { id } = useAuthStore(state => state);
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isBellOpen, setIsBellOpen] = useState(false); // 알림 드롭다운 상태 추가
   const location = useLocation();
-  const { list } = UseCommonHeader(alerts, setAlerts);
+
+  const {clickAlarm} = UseCommonHeader(setAlerts);
 
   const toggleSideNav = () => {
     setIsNavOpen(!isNavOpen);
@@ -75,24 +76,33 @@ const CommonHeader = ({ isLogin, alerts, setAlerts }) => {
                     onClick={toggleBellDropdown}
                     className={styles.iconButton}
                   >
-                    <Bell className={`${styles.bellIcon} ${alerts.user_id === id ? styles.bellIconAlert : ""}`} />
+                    {(() => {
+                      const hasNewAlert = alerts.length > 0 && alerts[0].user_id === id;
+                      return (
+                        <Bell
+                          className={`${styles.bellIcon} ${hasNewAlert ? styles.bellIconAlert : ""}`}
+                          onClick={() => setNewAlerts(false)}
+                        />
+                      );
+                    })()}
                   </button>
 
-                  {/* 알림 드롭다운 콘텐츠 */}
                   {isBellOpen && (
                     <div className={styles.bellDropdown}>
-                      {/* 드롭다운 헤더 */}
-                      <div className={`${styles.dropdownHeader}`}>
+                      <div className={styles.dropdownHeader}>
                         알림
-                        <span className={styles.newAlert}>New</span>
+                        {newAlerts ? <span className={styles.newAlert}>New</span> : ""}
                       </div>
 
-                      {/* 알림 리스트 */}
-                      {alerts && alerts.length > 0 ? alerts.map((alert, idx) => (
-                        <div key={idx} className={styles.alertItem}>
-                          <p className={styles.alertContent}>{alert.message}</p>
-                        </div>
-                      )) : <div>알람이 없습니다.</div>}
+                      {alerts.length > 0 ? (
+                        alerts.map((alert, idx) => (
+                          <div key={idx} className={styles.alertItem} onClick={() => clickAlarm(alert)}>
+                            <p className={styles.alertContent}>{alert.message}</p>
+                          </div>
+                        ))
+                      ) : (
+                        <div>알람이 없습니다.</div>
+                      )}
                     </div>
                   )}
                 </div>

@@ -17,13 +17,20 @@ export const connectWebSocket = (userToken, userId, onMessageReceived) => {
             console.log('WebSocket Connected');
 
             // 유저 알람 구독
-            stompClient.subscribe(`/user/${userId}/queue/notify`, (msg) => {
+            stompClient.subscribe("/user/queue/notify", (msg) => {
                 try {
                     const alert = JSON.parse(msg.body);
                     onMessageReceived(alert); // 최상위 상태로 전달
                 } catch (err) {
                     console.error('메시지 처리 오류', err);
                 }
+            });
+
+            // 구독 완료 후 초기 DB 알람 요청
+            // ⚠ 반드시 문자열 형태로 보냄
+            stompClient.publish({
+                destination: "/pub/notify/init",
+                body: userId // JSON 객체 X, 문자열 그대로
             });
         },
         onStompError: (frame) => console.error('STOMP ERROR:', frame)
