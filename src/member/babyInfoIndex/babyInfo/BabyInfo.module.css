@@ -184,7 +184,7 @@
   height: 48px;
   border-radius: 20px;
   border: none;
-  background-color: #b9b9b9;
+  background-color: #f0d827;
   color: white;
   font-size: 18px;
   font-weight: bold;
@@ -192,7 +192,8 @@
 }
 
 .corbt:hover {
-  background-color: #f0d827;
+  transform: scale(0.98);
+  background-color: #e0c817;
 }
 
 .corbtd {
@@ -208,7 +209,8 @@
 }
 
 .corbtd:hover {
-  background-color: #f0d827;
+  transform: scale(0.98);
+  background-color: #b0b0b0;
 }
 
 .corbtc {
@@ -216,7 +218,7 @@
   height: 48px;
   border-radius: 20px;
   border: none;
-  background-color: #b9b9b9;
+  background-color: #f0d827;
   color: white;
   font-size: 18px;
   font-weight: bold;
@@ -224,7 +226,8 @@
 }
 
 .corbtc:hover {
-  background-color: #f0d827;
+  transform: scale(0.98);
+  background-color: #e0c817;
 }
 
 /*---------------------------------------------------------*/

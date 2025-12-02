@@ -21,3 +21,72 @@
   padding: 20px;
   height: 100%;
 }
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+    overflow-y: auto; /* 여기만 스크롤 */
+  }
+}
+/* 모바일 (예: 480px 이하) */
+@media (max-width: 480px) {
+  .container {
+    padding: 5px;
+  }
+
+  .left,
+  .right {
+    padding: 5px 0;
+  }
+}
+
+/* ============================= */
+/* Nest Hub Max (1280px ~ 1025px) */
+/* ============================= */
+@media (max-width: 1280px) and (min-width: 1025px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px 50px; /* 좌우 패딩 조금 넓게 */
+    overflow-y: auto; /* 내용 길면 스크롤 */
+  }
+
+  .left {
+    flex: 0 0 60%; /* 좌측 그림 조금 더 크게 */
+    max-width: 600px;
+    padding: 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .right {
+    flex: 0 0 40%; /* 우측 정보 영역 */
+    max-width: 400px;
+    padding: 15px 0;
+  }
+}
+
+/* ============================= */
+/* Nest Hub (1024px 이하) */
+/* ============================= */
+@media (max-width: 1024px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 15px 30px; /* 좌우 패딩 줄이기 */
+    overflow-y: auto;
+  }
+
+  .left,
+  .right {
+    flex: 1 1 100%;
+    width: 100%;
+    padding: 10px 0;
+  }
+}

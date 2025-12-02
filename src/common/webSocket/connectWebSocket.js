@@ -9,7 +9,7 @@ export const connectWebSocket = (userToken, onMessageReceived) => {
         return;
     }
 
-    const socket = new SockJS(`http://10.5.5.4/ws-stomp?token=${userToken}`);
+    const socket = new SockJS(`http://10.10.55.103/ws-stomp?token=${userToken}`);
 
     stompClient = new Client({
         webSocketFactory: () => socket,

@@ -1,3 +1,6 @@
+/* =========================
+   기본 스타일 (데스크탑)
+   ========================= */
 .body {
   display: flex;
   flex-direction: column;
@@ -10,56 +13,66 @@
   color: #696b70;
 }
 
-/* 상단 메뉴 영역 */
 .menuSection {
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 20px;
   width: 100%;
   justify-content: flex-start;
-  margin-bottom: 26px;
+  margin-bottom: 20px;
   flex-shrink: 0;
 }
 
-/* 메뉴 버튼 기본 스타일 */
 .menuButton,
 .menuActive {
   flex-shrink: 0;
-  width: 200px;
-  height: 48px;
-  border-radius: 22px;
-  font-size: 18px;
-  padding: 0 16px;
+  width: 180px;
+  height: 44px;
+  border-radius: 20px;
+  font-size: 16px;
+  padding: 0 14px;
   box-sizing: border-box;
   border: none;
   cursor: pointer;
 }
 
-/* 활성 버튼 스타일 */
 .menuActive {
   background-color: #adb9e3;
   color: #fff;
   font-weight: 800;
 }
 
-/* 비활성 버튼 스타일 */
 .menuButton {
   background-color: transparent;
   border: 2px solid #adb9e3;
   color: #696b70;
 }
 
-/* 메인 컨텐츠 (TotalChart + ChartInput을 감쌈) */
 .contentWrapper {
   display: flex;
   width: 100%;
-  height: 100%;
-  gap: 26px;
+  height: calc(100% - 70px);
+  gap: 20px;
   flex: 1;
   align-items: stretch;
 }
 
 .chartRouteArea {
+  flex: 2;
+  height: 100%;
+  min-height: 250px;
+  overflow-y: auto;
+}
+
+.ChartInputArea {
   flex: 1;
   height: 100%;
+  min-height: 250px;
+  overflow-y: auto;
+}
+
+.ChartInputArea > * {
+  flex: 1;      
+  min-height: 0; 
+  height: 100%;  
 }
