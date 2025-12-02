@@ -39,8 +39,9 @@ const BabyController = ({ isSidebar }) => {
             {data.map((baby, index) => (
               <button
                 key={index}
-                className={`${babySeq == baby.baby_seq ? styles.ingbaby1 : styles.ingbaby
-                  }`}
+                className={`${
+                  babySeq == baby.baby_seq ? styles.ingbaby1 : styles.ingbaby
+                }`}
                 onClick={() => changeBaby(baby.baby_seq, baby.birth_date)}
               >
                 <div className={styles.bbb}>
@@ -49,8 +50,12 @@ const BabyController = ({ isSidebar }) => {
                     alt="babyface"
                     className={styles.babyfaceImage}
                   />
-                  <div className={styles.babyname}>{baby.name}</div>
-                  <div className={styles.how}>{getKoreanOrder(index + 1)}</div>
+                  <div>
+                    <div className={styles.babyname}>{baby.name}</div>
+                    <div className={styles.how}>
+                      {getKoreanOrder(index + 1)}
+                    </div>
+                  </div>
                 </div>
               </button>
             ))}

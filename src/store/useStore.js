@@ -35,10 +35,6 @@
 
 import { create } from "zustand";
 
-// 1. 🚨 sessionStorage에서 babySeq를 읽어옵니다. (필수)
-const storedBabySeq = sessionStorage.getItem("babySeq");
-const initialBabySeq = storedBabySeq ? Number(storedBabySeq) : 1;
-
 const useAuthStore = create((set) => ({
   token: "",
   id: "",
@@ -64,10 +60,10 @@ const useAuthStore = create((set) => ({
   logout: () => {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("id");
-    set({ token: "", id: "", isLogin: false });
+    sessionStorage.removeItem("babySeq");
+    sessionStorage.removeItem("babyDueDate");
+    set({ token: "", id: "", isLogin: false, babySeq: 0, babyDueDate: 0 });
 
-    sessionStorage.removeItem("jamesAccessToken");
-    set({ token: "", id: "", isLogin: false });
   },
 
   setBabyDueDate: (duedate) => {
