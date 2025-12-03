@@ -13,6 +13,7 @@ const ChartInput = ({ menuList, activeMenu, currentWeek, isFetalMode, inputs, se
   const isDisabled = hasData && !isEditing;
   const [weekStart, setWeekStart] = useState(null);
   const [weekEnd, setWeekEnd] = useState(null);
+  const [render, setRender] = useState(false);
 
   // 입력값 업데이트
   const map = {
@@ -97,14 +98,10 @@ const ChartInput = ({ menuList, activeMenu, currentWeek, isFetalMode, inputs, se
 
   const handleCancelOrUpdate = async (action) => {
     if (action === "cancel") {
-      const restoredInputs = {};
-      Object.entries(actualData).forEach(([type, value]) => {
-        const key = map[type];
-        if (!key) return;
-        restoredInputs[key] = type === "EFW" ? String(value / 1000) : String(value);
-      });
-      setInputs(restoredInputs);
       setIsEditing(false);
+      // await fetchActualData();
+      setRender(prev => !prev);
+
       return;
     }
     else if (action === "update") {
@@ -177,7 +174,7 @@ const ChartInput = ({ menuList, activeMenu, currentWeek, isFetalMode, inputs, se
 
       setIsEditing(false); // 완료 후 자동으로 수정 버튼 활성화 
     }
-  }, [babyDueDate, currentWeek, actualData]);
+  }, [babyDueDate, currentWeek, actualData, render]);
 
 
 

@@ -11,6 +11,7 @@ import Loading from "common/loading/Loading";
 import useAuthStore from "../../store/useStore";
 import { useChartIndex } from "./UseChartIndex";
 import { fetalWeekStartEnd, infantWeekStartEnd } from "../utils/pregnancyUtils";
+import { INFANT_STANDARDS } from "./InfantStandardData";
 const ChartIndex = () => {
   const [inputs, setInputs] = useState({});
   const [actualData, setActualData] = useState({}); // 실제 입력 데이터 (API 응답)
@@ -36,10 +37,10 @@ const ChartIndex = () => {
     "허벅지 길이",
   ];
   // 상단 메뉴 버튼: 육아
-  const babyMenuList = ["성장", "몸무게", "키"];
+  const infantMenuList = ["성장", "몸무게", "머리둘레", "신장"];
 
   // 현재 모드에 따라 사용될 메뉴 리스트를 동적으로 결정
-  const currentMenuList = isFetalMode ? fetalMenuList : babyMenuList;
+  const currentMenuList = isFetalMode ? fetalMenuList : infantMenuList;
 
   // 정적 표준 데이터 계산
   const currentStandardData = useMemo(() => {
@@ -48,7 +49,7 @@ const ChartIndex = () => {
     if (isFetalMode) {
       return FETAL_STANDARDS[currentWeek];
     }
-    return null; // 육아 모드일 때는 태아 표준 데이터 는 사용하지 않음
+    return INFANT_STANDARDS[currentWeek / 4]; // 육아 모드일 때는 태아 표준 데이터 는 사용하지 않음
   }, [currentWeek, isFetalMode]); // isFetalMode가 바뀔 때 useMemo 재계산
 
   console.log("메뉴 : " + activeMenu);
