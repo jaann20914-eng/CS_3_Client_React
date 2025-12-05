@@ -35,7 +35,7 @@ const BoardWrite = () => {
         <div className={styles.inputField}>
           <input
             type="text"
-            placeholder="제목을 입력하세요"
+            placeholder="제목을 입력하세요 (최대 30글자)"
             className={styles.inputElement}
             ref={titleRef}
           />
@@ -131,7 +131,7 @@ const BoardWrite = () => {
           {/* 사용자에게 보이는 업로드 버튼 (label을 사용하여 input을 클릭) */}
           <label htmlFor="file-upload" className={styles.uploadButton}>
             <UploadCloud size={20} />
-            <span>파일 선택 또는 드래그 앤 드롭</span>
+            <span>파일 선택 또는 드래그 앤 드롭 (최대 7개)</span>
           </label>
 
           {/* 업로드된 파일 목록 */}
