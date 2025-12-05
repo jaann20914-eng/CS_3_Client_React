@@ -334,6 +334,7 @@
   border: none;
   cursor: pointer;
 }
+
 .backBtn {
   background-color: var(--color-font-back);
 }

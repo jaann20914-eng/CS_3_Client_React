@@ -5,16 +5,18 @@ import Signup from './notmember/signup/Signup';
 import MainIndex from './notmember/mainIndex/MainIndex';
 import ChooseType from "./member/chooseType/ChooseType.jsx";
 import InputBaby from "./member/inputBaby/InputBaby";
+
 import useAuthStore from './store/useStore.js';
+
 import { connectWebSocket } from 'common/webSocket/connectWebSocket';
 import "./styles/them.css";
 import { caxios } from 'config/config';
 
 function AppRoutes() {
   const location = useLocation(); // 현재 경로 감지
-  const { login, isLogin, getbabySeq, setBabyDueDate } = useAuthStore((state) => state);
+  const { login, isLogin, getbabySeq, setBabyDueDate, newAlerts, setNewAlerts } = useAuthStore((state) => state);
   const [alerts, setAlerts] = useState([]);
-  const [newAlerts, setNewAlerts] = useState(false);
+  // const [newAlerts, setNewAlerts] = useState(false);
 
   // 경로 변화 감지
   useEffect(() => {
@@ -58,16 +60,23 @@ function AppRoutes() {
           if (exists) return prev;
           return [processedAlert, ...prev];
         });
+        setNewAlerts(true);
       });
     }
-  }, []);
+  }, [isLogin]);
+
+  useEffect(() => {
+    if (alerts.length == 0) {
+      setNewAlerts(false);
+    }
+  }, [alerts]);
 
   return (
     <Routes>
-      <Route path='/login/*' element={<Login setAlerts={setAlerts} />} />
+      <Route path='/login/*' element={<Login alerts={alerts} setAlerts={setAlerts} />} />
       <Route path='/signup/*' element={<Signup />} />
       <Route path="/chooseType" element={<ChooseType />} />
-      <Route path='/*' element={<MainIndex isLogin={isLogin} alerts={alerts} setAlerts={setAlerts} newAlerts={newAlerts} setNewAlerts={setNewAlerts} />} />
+      <Route path='/*' element={<MainIndex isLogin={isLogin} alerts={alerts} setAlerts={setAlerts} />} />
       <Route path="input-baby" element={<InputBaby />} />
     </Routes>
   );

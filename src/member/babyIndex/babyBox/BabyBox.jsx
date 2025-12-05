@@ -88,9 +88,8 @@ const BabyBox = ({ setIsBorn }) => {
         <div>
           <motion.img
             src={mainImage}
-            className={`${styles.placeholderImage} ${
-              isParenting ? styles.parentingImage : styles.placeholderImage
-            }`}
+            className={`${styles.placeholderImage} ${isParenting ? styles.parentingImage : styles.placeholderImage
+              }`}
             alt={isParenting ? "육아" : "아기"}
             initial="initial"
             animate="animate"
