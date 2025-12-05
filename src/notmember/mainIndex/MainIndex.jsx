@@ -19,6 +19,9 @@ import Loading from "common/loading/Loading";
 import styles from "./MainIndex.module.css";
 import useAuthStore from "../../store/useStore";
 import { caxios } from "config/config";
+import PrivateRoute, { ToLogin } from "privateRoute";
+import LoginBox from "notmember/login/loginBox/LoginBox";
+import Login from "notmember/login/Login";
 
 import { useEffect, useRef, useState } from "react";
 
@@ -51,8 +54,7 @@ const MainIndex = ({ alerts, setAlerts }) => {
   --------------------------------*/
   useEffect(() => {
     if (!isLogin) return;
-
-    const trackablePaths = [
+    const paths = [
       "/board",
       "/mypage",
       "/babymypage",
@@ -60,9 +62,15 @@ const MainIndex = ({ alerts, setAlerts }) => {
       "/chart",
       "/diary",
     ];
+    const currentPath = location.pathname;
 
-    if (trackablePaths.some((p) => location.pathname.startsWith(p))) {
-      caxios.post("/dashCart", { path: location.pathname }).catch(() => {});
+    console.log("현재 path:", currentPath);
+
+    // 정확히 paths 배열에 있는 값만 처리
+    if (paths.includes(currentPath)) {
+      caxios
+        .post("/dashCart", { path: currentPath })
+        .catch((err) => console.log(err));
     }
   }, [location, isLogin]);
 
@@ -127,13 +135,51 @@ const MainIndex = ({ alerts, setAlerts }) => {
           {/*로그인 안되어 있으면 ? 인포메이션 : 되면 베이비인덱스*/}
           <Route path="board/*" element={<BoardIndex />} /> {/*커뮤니티*/}
           {/*-----------------------------------------------------------------------여기까지는 비회원도 접근 가능한 부분 아래는 불가하게 막아야함*/}
-          <Route path="mypage" element={<ParentInfoIndex />} />
-          <Route path="babymypage" element={<BabyInfoIndex />} />
+          <Route
+            path="mypage"
+            element={
+              <PrivateRoute>
+                <ParentInfoIndex />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="babymypage"
+            element={
+              <PrivateRoute>
+                <BabyInfoIndex />
+              </PrivateRoute>
+            }
+          />
           {/*아기 마이페이지*/}
-          <Route path="checklist" element={<CheckListIndex />} />
+          <Route
+            path="checklist"
+            element={
+              <PrivateRoute>
+                <CheckListIndex />
+              </PrivateRoute>
+            }
+          />
           {/*검진 체크리스트*/}
-          <Route path="chart/*" element={<ChartIndex />} /> {/*차트*/}
-          <Route path="diary/*" element={<DiaryIndex />} /> {/*산모수첩*/}
+          <Route
+            path="chart/*"
+            element={
+              <PrivateRoute>
+                <ChartIndex />
+              </PrivateRoute>
+            }
+          />{" "}
+          {/*차트*/}
+          <Route
+            path="diary/*"
+            element={
+              <PrivateRoute>
+                <DiaryIndex />
+              </PrivateRoute>
+            }
+          />{" "}
+          {/*산모수첩*/}
+          <Route path="*" element={<ToLogin />} />
         </Routes>
       </div>
     </div>

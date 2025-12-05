@@ -17,6 +17,7 @@ import styles from "./BoardList.module.css";
 import { UseBoardList } from "./UseBoardList";
 import PageNaviBar from "../../../common/pageNavi/PageNavi";
 import BoardOver from "../boardOver/BoardOver";
+import useAuthStore from "store/useStore";
 
 // 모션
 const containerVariants = {
@@ -68,6 +69,8 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
     isMine,
   } = UseBoardList({ handleDeleteBoard, handleEditBoard });
 
+  const isLogin = useAuthStore(state => state.isLogin);
+
   const [reportOpen, setReportOpen] = useState(false);
 
   const [selectedBoardSeq, setSelectedBoardSeq] = useState(null);
@@ -82,9 +85,8 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
             {Object.keys(CATEGORY_MAP).map((cat) => (
               <button
                 key={cat}
-                className={`${styles.categoryItem} ${
-                  activeCategory === cat ? styles.active : ""
-                }`}
+                className={`${styles.categoryItem} ${activeCategory === cat ? styles.active : ""
+                  }`}
                 onClick={() => handleTopBtn(cat)}
               >
                 {cat}
@@ -95,9 +97,11 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
 
         {/* 오른쪽 그룹: 글작성 버튼 + 검색창 */}
         <div className={styles.rightGroup}>
-          <button className={styles.writeButton} onClick={toWrite}>
+
+          {isLogin && <button className={styles.writeButton} onClick={toWrite}>
             글 작성
-          </button>
+          </button>}
+
           <div className={styles.searchBar}>
             <input
               type="text"
@@ -152,9 +156,8 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
               >
                 {/* 카드 상단 이미지 영역 */}
                 <div
-                  className={`${styles.cardHeader} ${
-                    !thumbsUrlMap[item.board.board_seq] ? styles.noImage : ""
-                  }`}
+                  className={`${styles.cardHeader} ${!thumbsUrlMap[item.board.board_seq] ? styles.noImage : ""
+                    }`}
                 >
                   {/* 이미지 있을 때만 출력 */}
                   {thumbsUrlMap[item.board.board_seq] && (
@@ -165,7 +168,7 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
                     />
                   )}
 
-                  <button
+                  {isLogin && <button
                     className={styles.menuBtn}
                     aria-label="옵션 더보기"
                     onClick={(e) => {
@@ -174,7 +177,7 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
                     }}
                   >
                     <MoreHorizontal size={24} color="#696b70" />
-                  </button>
+                  </button>}
 
                   {openMenuId === item.board.board_seq && (
                     <motion.div
@@ -234,9 +237,8 @@ const BoardList = ({ handleDeleteBoard, handleEditBoard }) => {
                 <div className={styles.content}>
                   <div className={styles.textGroup}>
                     <span
-                      className={`${styles.categoryTag} ${
-                        styles[CATEGORY_MAP_REVERSE[item.board.board_type]]
-                      }`}
+                      className={`${styles.categoryTag} ${styles[CATEGORY_MAP_REVERSE[item.board.board_type]]
+                        }`}
                     >
                       {CATEGORY_MAP_REVERSE[item.board.board_type]}
                     </span>

@@ -8,6 +8,7 @@ import { EditorContent } from "@tiptap/react";
 import CommentItem from "./comment/Comment";
 import { FILE_SERVER } from "config/config";
 import BoardOver from "../boardOver/BoardOver";
+import useAuthStore from "store/useStore";
 
 // --- 메인 컴포넌트 ---
 const BoardDetail = ({ handleDeleteBoard, handleEditBoard }) => {
@@ -45,6 +46,7 @@ const BoardDetail = ({ handleDeleteBoard, handleEditBoard }) => {
 
   const [reportOpen, setReportOpen] = useState(false);
   const [reportTargetSeq, setReportTargetSeq] = useState(null);
+  const isLogin = useAuthStore(state => state.isLogin);
 
   // 상태에 따라 동적 클래스 생성 - css를 위해 추가한 사항 확인
   const commentAreaClasses = [
@@ -249,8 +251,8 @@ const BoardDetail = ({ handleDeleteBoard, handleEditBoard }) => {
                     isEdit
                       ? "댓글을 수정하세요 (최대 50자)"
                       : isReply
-                      ? "대댓글을 입력하세요 (최대 50자)"
-                      : "메시지를 입력하세요 (최대 50자)"
+                        ? "대댓글을 입력하세요 (최대 50자)"
+                        : "메시지를 입력하세요 (최대 50자)"
                   }
                   className={styles.inputElement}
                 />
